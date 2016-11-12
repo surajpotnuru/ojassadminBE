@@ -9,10 +9,10 @@ var mysql = require("mysql");
 //     database: "ojass"
 // });
 var DBConnection = mysql.createConnection({
-    host: "http://mysql.hostinger.in",
-    user: "u414274941_ojass",
-    password: "ojass.mysql",
-    database: "u414274941_ojass"
+    host: "117.211.91.60",
+    user: "root",
+    password: "~@b%31#M",
+    database: "ojass"
 });
 
 var Database = module.exports = DBConnection;
