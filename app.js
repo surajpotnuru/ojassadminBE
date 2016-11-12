@@ -3,7 +3,7 @@
  */
 //Required Modules
 var express = require("express");
-var DBConnection = require("./config/Database");
+// var DBConnection = require("./config/Database");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var jwt = require("jsonwebtoken");
