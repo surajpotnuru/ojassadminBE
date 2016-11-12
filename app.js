@@ -26,11 +26,11 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use("/api", apiRouter);
-DBConnection.connect(function (err) {
-    if (err)
-        throw err;
-    // console.log("Connected to Database");
-});
+// DBConnection.connect(function (err) {
+//     if (err)
+//         throw err;
+//     // console.log("Connected to Database");
+// });
 app.listen(port, function () {
     console.log("API Server Running at localhost:" + port);
 });

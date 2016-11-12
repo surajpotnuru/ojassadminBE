@@ -12,7 +12,8 @@ var DBConnection = mysql.createConnection({
     host: "117.211.91.60",
     user: "root",
     password: "~@b%31#M",
-    database: "ojass"
+    database: "ojass",
+    port: 3306
 });
 
 var Database = module.exports = DBConnection;
