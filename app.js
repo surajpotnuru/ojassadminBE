@@ -125,7 +125,7 @@ apiRouter.post("/signup", function (req, res) {
                                                 message: "registration successfull"
                                             });
                                         });
-                                    }else if(result[0].coordid2 == ''){
+                                    } else if (result[0].coordid2 == '') {
                                         var query = "update branches set coordid2='" + uid + "'" + " where branchid='" + branch + "'";
                                         DBConnection.query(query, function (err, result) {
                                             if (err)
@@ -341,17 +341,57 @@ apiRouter.get("/branchdetails/:branchid", function (req, res) {
         });
     });
 });
-apiRouter.post("/branchdetails",function(req,res){
+apiRouter.post("/branchdetails", function (req, res) {
     var branchname = req.body.branchname;
     var branchdesc = req.body.branchdesc;
     var branchtprize = req.body.tprize;
     var branchid = req.body.branchid;
-    var query = "update branches set branchname='"+branchname+"',branchdesc='"+branchdesc+"',totalprize='"+branchtprize+"' where branchid='"+branchid+"'"
-    DBConnection.query(query,function(err,result){
-        if(err)
+    var query = "update branches set branchname='" + branchname + "',branchdesc='" + branchdesc + "',totalprize='" + branchtprize + "' where branchid='" + branchid + "'"
+    DBConnection.query(query, function (err, result) {
+        if (err)
             throw err;
         res.json({
             success: true
         });
+    });
+});
+apiRouter.get("/allevents/:branchid", function (req, res) {
+    var branchid = req.params.branchid;
+    var query = "select * from events where branchid='" + branchid + "'";
+    DBConnection.query(query, function (err, result) {
+        if (err)
+            throw err;
+        res.json({
+            success: true,
+            message: result
+        });
+    });
+});
+apiRouter.post("/addrule", function (req, res) {
+    var rule = req.body.rule;
+    var eid = req.body.eid;
+    var query = "select count(*) as count from events where eid='" + eid + "'";
+    DBConnection.query(query, function (err, result) {
+        var count = result[0].count;
+        if (count == 1) {
+            var query = "insert into rules set ?";
+            var data = {
+                rule: rule,
+                eid: eid
+            };
+            DBConnection.query(query, data, function (err, result) {
+                if (err)
+                    throw err;
+                res.json({
+                    success: true,
+                    message: "rule added"
+                });
+            });
+        }else{
+            res.json({
+                success: false,
+                message: "invalid event"
+            });
+        }
     });
 });
